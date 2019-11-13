@@ -1,7 +1,7 @@
 {
-  "name": "avidly-frappe-charts",
+  "name": "avidly-apex-charts",
   "version": "1.0.0",
-  "description": "This plugin makes possible to use interactive [Frappe Charts](https://frappe.io/charts) in WordPress.",
+  "description": "This plugin makes possible to use interactive [Apex Charts](https://frappe.io/charts) in WordPress.",
   "main": "index.js",
   "scripts": {
     "development": "webpack --mode=development --progress",
@@ -31,7 +31,7 @@
     "webpack-cli": "^3.3.9"
   },
   "dependencies": {
-    "core-js": "^3.3.3",
-    "frappe-charts": "^1.3.0"
+    "apexcharts": "^3.10.1",
+    "core-js": "^3.3.3"
   }
 }

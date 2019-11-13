@@ -4,7 +4,7 @@
  * Register scripts and styles
  */
 
-function frappe_register_scripts() {
+function apex_register_scripts() {
 	wp_register_script(
 		'js-code-editor',
 		plugin_dir_url( __DIR__ ) . 'dist/admin.js',
@@ -13,7 +13,7 @@ function frappe_register_scripts() {
 		true
 	);
 	wp_register_script(
-		'frappe-chart',
+		'apex-chart',
 		plugin_dir_url( __DIR__ ) . 'dist/app.js',
 		[],
 		'0.2',
@@ -26,17 +26,24 @@ function frappe_register_scripts() {
  *
  * @param string $hook
  */
-function frappe_enqueue_admin_scripts( $hook ) {
+function apex_enqueue_admin_scripts( $hook ) {
 	if ( ! get_the_ID() ) {
 		return;
 	}
-	if ( 'frappe-chart' !== get_post_type( get_the_ID() ) ) {
+	if ( 'apex-chart' !== get_post_type( get_the_ID() ) ) {
 		return;
 	}
 
 	if ( 'post.php' === $hook || 'post-new.php' === $hook ) {
 		wp_enqueue_code_editor( [ 'type' => 'application/json' ] );
 		wp_enqueue_script( 'js-code-editor' );
-		wp_enqueue_script( 'frappe-chart' );
+		wp_enqueue_script( 'apex-chart' );
 	}
+	wp_localize_script(
+		'apex-chart',
+		'avidlyApexSettings',
+		[
+			'isAdmin' => true,
+		]
+	);
 }

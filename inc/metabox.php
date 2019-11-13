@@ -2,18 +2,18 @@
 /**
  * Set up metaboxes
  *
- * @package Avidly-Frappe-Charts
+ * @package Avidly-Apex-Charts
  */
 
 /**
  * Set up chart metabox
  */
-function frappe_add_metabox() {
+function apex_add_metabox() {
 	add_meta_box(
 		'page-scripts',
-		__( 'Chart', 'frappe-charts' ),
-		'frappe_display_metabox',
-		'frappe-chart',
+		__( 'Chart', 'apex-charts' ),
+		'apex_display_metabox',
+		'apex-chart',
 		'advanced'
 	);
 }
@@ -23,7 +23,7 @@ function frappe_add_metabox() {
  *
  * @param WP_Post $post Current post object.
  */
-function frappe_display_metabox( $post ) {
+function apex_display_metabox( $post ) {
 
 	$chart_id = $post->ID;
 
@@ -32,8 +32,8 @@ function frappe_display_metabox( $post ) {
 
 	// Localize chart data and options for preview
 	wp_localize_script(
-		'frappe-chart',
-		'avidlyFrappeChart_' . $chart_id,
+		'apex-chart',
+		'avidlyApexChart_' . $chart_id,
 		[
 			'data'  => get_post_meta( $chart_id, 'chart-settings' ),
 			'title' => esc_html( get_the_title( $chart_id ) ),
@@ -43,14 +43,14 @@ function frappe_display_metabox( $post ) {
 	<h3>Shortcode</h3>
 	<pre>[chart id='<?php echo esc_attr( $post->ID ); ?>']</pre>
 	<h3>Preview</h3>
-	<div class="avidly-frappe-chart" data-frappe-id="<?php echo esc_attr( $chart_id ); ?>"></div>
+	<div class="avidly-apex-chart" data-apex-id="<?php echo esc_attr( $chart_id ); ?>"></div>
 	<fieldset>
 		<h3>Values</h3>
 		<p class="description">Use JSON</p>
 		<textarea id="code_editor_page_json" rows="40" name="chart-settings" class="widefat textarea">
 			<?php echo esc_textarea( wp_unslash( $chart_settings ) ); ?>
 		</textarea>
-		<?php wp_nonce_field( 'frappe_chart_' . $chart_id, 'frappe_nonce' ); ?>
+		<?php wp_nonce_field( 'apex_chart_' . $chart_id, 'apex_nonce' ); ?>
 	</fieldset>
 	<style>
 		.CodeMirror {
@@ -65,11 +65,11 @@ function frappe_display_metabox( $post ) {
  *
  * @param int $post_id Post ID
  */
-function frappe_save_metabox( $post_id ) {
+function apex_save_metabox( $post_id ) {
 	if ( defined( 'DOING_AJAX' ) ) {
 		return;
 	}
-	if ( isset( $_POST['chart-settings'] ) && ! wp_verify_nonce( $_POST['frappe_nonce'], 'frappe_chart_' . $post_id ) ) {
+	if ( isset( $_POST['chart-settings'] ) && ! wp_verify_nonce( $_POST['apex_nonce'], 'apex_chart_' . $post_id ) ) {
 		die( 'Security check' );
 	}
 	if ( isset( $_POST['chart-settings'] ) && json_decode( wp_unslash( $_POST['chart-settings'] ) ) ) {
