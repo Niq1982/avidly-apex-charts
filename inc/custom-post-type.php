@@ -36,7 +36,7 @@ function apex_register_post_type() {
 	$args   = [
 		'label'               => __( 'Chart', 'avidly-apex' ),
 		'labels'              => $labels,
-		'supports'            => array( 'title', 'thumbnail' ),
+		'supports'            => array( 'title', 'revisions' ),
 		'hierarchical'        => false,
 		'public'              => true,
 		'show_ui'             => true,
