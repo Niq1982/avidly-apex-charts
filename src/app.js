@@ -1,5 +1,5 @@
 // import { Chart } from '!babel-loader!frappe-charts/dist/frappe-charts.esm.js';
-import ApexCharts from 'apexcharts'
+import ApexCharts from '!babel-loader!apexcharts'
 // import css
 // import 'frappe-charts/dist/frappe-charts.min.css'
 
